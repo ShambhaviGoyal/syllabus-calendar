@@ -140,7 +140,7 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
       assignments: [
         {
           id: "c1",
-          date: "2024-09-02",
+          date: "2025-01-13",
           title: "Week 1 Monday: Course Introduction",
           type: "reading",
           description: "Introduction materials (Hawkins v. McGee) & Home Building v. Blaisdell",
@@ -148,7 +148,7 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
         },
         {
           id: "c2", 
-          date: "2024-09-04",
+          date: "2025-01-15",
           title: "Week 1 Wednesday: Contract Enforcement",
           type: "reading",
           description: "Door Dash, Inc. v. City of New York; Pages 38-54",
@@ -156,7 +156,7 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
         },
         {
           id: "c3",
-          date: "2024-09-09",
+          date: "2025-01-22",
           title: "Week 2 Monday: Formation Basics",
           type: "reading", 
           description: "Pages 66-90",
@@ -164,7 +164,7 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
         },
         {
           id: "c4",
-          date: "2024-09-11",
+          date: "2025-01-24",
           title: "Week 2 Wednesday: Offer & Acceptance",
           type: "reading",
           description: "Pages 91-101; 119-138", 
@@ -172,7 +172,7 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
         },
         {
           id: "c5",
-          date: "2024-09-18",
+          date: "2025-01-29",
           title: "Week 3 Wednesday: Consideration",
           type: "reading",
           description: "pp 153-172",

@@ -76,6 +76,7 @@ const Calendar: React.FC<CalendarProps> = ({ assignments }) => {
         events={events}
         eventClick={handleEventClick}
         height="auto"
+        initialDate={assignments.length > 0 ? assignments[0].date : undefined}
         headerToolbar={{
           left: 'prev,next today',
           center: 'title',
