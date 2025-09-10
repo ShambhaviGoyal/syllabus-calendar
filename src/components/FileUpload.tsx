@@ -31,12 +31,15 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
     setIsUploading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('syllabus', selectedFile);
-
+      // For mock version, we'll just send the filename
       const response = await fetch('/api/upload-syllabus', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: selectedFile.name
+        }),
       });
 
       const result = await response.json();
