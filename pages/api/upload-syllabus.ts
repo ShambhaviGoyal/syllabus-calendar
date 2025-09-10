@@ -1,5 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
+import formidable from 'formidable';
+import fs from 'fs';
+import { extractTextFromPDF, cleanText } from '../../src/lib/pdfParser';
 import { processSyllabusWithAI } from '../../src/lib/aiProcessor';
+
+// Disable the default body parser
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -7,28 +17,58 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    // For mock version, we'll simulate processing based on form data
-    // In a real version, you'd extract text from the uploaded PDF
-    
-    console.log('Processing upload request...');
-    
-    // Get filename from the request (if available)
-    const filename = req.body?.filename || 'syllabus.pdf';
-    
-    // Use mock processing
-    const result = await processSyllabusWithAI(filename);
-    
-    console.log('Mock processing completed:', {
-      success: result.success,
-      assignmentCount: result.assignments.length
+    // Parse the form data
+    const form = formidable({
+      maxFileSize: 10 * 1024 * 1024, // 10MB limit
+      filter: ({ mimetype }) => {
+        return mimetype === 'application/pdf';
+      },
     });
 
-    res.json({ success: true, data: result });
+    const [fields, files] = await form.parse(req);
+    
+    const file = Array.isArray(files.syllabus) ? files.syllabus[0] : files.syllabus;
+    
+    if (!file) {
+      return res.status(400).json({
+        success: false,
+        error: 'No PDF file uploaded'
+      });
+    }
+
+    console.log('Processing uploaded file:', file.originalFilename);
+
+    // Read the file buffer
+    const fileBuffer = fs.readFileSync(file.filepath);
+    
+    // Extract text from PDF
+    const rawText = await extractTextFromPDF(fileBuffer);
+    const cleanedText = cleanText(rawText);
+    
+    console.log('Extracted text length:', cleanedText.length);
+
+    // Process with AI
+    const result = await processSyllabusWithAI(cleanedText);
+    
+    console.log('AI processing result:', {
+      success: result.success,
+      assignmentCount: result.assignments.length,
+      courseTitle: result.courseInfo.title
+    });
+
+    // Clean up the temporary file
+    fs.unlinkSync(file.filepath);
+
+    res.json({
+      success: true,
+      data: result
+    });
+
   } catch (error) {
-    console.error('Upload error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Upload failed' 
+    console.error('Upload processing error:', error);
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
     });
   }
 }

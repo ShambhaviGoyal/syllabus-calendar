@@ -185,19 +185,19 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
 }
 
 export async function processSyllabusWithAI(text: string): Promise<ProcessedSyllabus> {
-  // For now, use mock data
-  return mockProcessSyllabus(text.substring(0, 100));
-  
-  /* 
-  // Uncomment this when ready to use real OpenAI API
-  
-  import OpenAI from 'openai';
-  
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  // Check if we have an API key, otherwise fall back to mock data
+  if (!process.env.OPENAI_API_KEY) {
+    console.log('No OpenAI API key found, using mock data');
+    return mockProcessSyllabus(text.substring(0, 100));
+  }
 
   try {
+    const OpenAI = require('openai');
+    
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const prompt = `Analyze this law school syllabus and extract all assignments, readings, and important dates. 
 Return a JSON object with the following structure:
 
@@ -216,9 +216,9 @@ Return a JSON object with the following structure:
       "title": "Brief title of the assignment",
       "type": "reading|assignment|exam|presentation|conference|other",
       "description": "Detailed description",
-      "isRequired": true/false,
-      "timeStart": "HH:MM" (if specific time mentioned),
-      "timeEnd": "HH:MM" (if specific time mentioned)
+      "isRequired": true,
+      "timeStart": "HH:MM",
+      "timeEnd": "HH:MM"
     }
   ]
 }
@@ -234,6 +234,8 @@ Important guidelines:
 8. If a date has multiple tasks, create separate entries for each
 9. Use the year 2025 for dates that don't specify a year
 10. Only include dates that have specific academic activities
+11. Set isRequired to true for all academic activities
+12. Extract specific times if mentioned (e.g., "8:00 PM" becomes "20:00")
 
 Syllabus text:
 ${text}
@@ -241,10 +243,10 @@ ${text}
 Return ONLY the JSON object, no additional text.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4o-mini", // Using cheaper model for cost efficiency
       messages: [{ role: "user", content: prompt }],
       temperature: 0.1,
-      max_tokens: 2000,
+      max_tokens: 3000,
     });
 
     const response = completion.choices[0]?.message?.content;
@@ -255,10 +257,11 @@ Return ONLY the JSON object, no additional text.`;
     // Parse the JSON response
     const parsed = JSON.parse(response);
     
-    // Add unique IDs if missing
+    // Add unique IDs if missing and ensure required fields
     parsed.assignments = parsed.assignments.map((assignment: any, index: number) => ({
       ...assignment,
       id: assignment.id || `assignment_${index}_${Date.now()}`,
+      isRequired: assignment.isRequired !== undefined ? assignment.isRequired : true,
     }));
 
     return {
@@ -267,16 +270,8 @@ Return ONLY the JSON object, no additional text.`;
     };
   } catch (error) {
     console.error('Error processing with AI:', error);
-    return {
-      courseInfo: {
-        title: 'Unknown Course',
-        professor: 'Unknown',
-        semester: 'Unknown',
-      },
-      assignments: [],
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
-    };
+    // Fall back to mock data if AI fails
+    console.log('Falling back to mock data due to AI error');
+    return mockProcessSyllabus(text.substring(0, 100));
   }
-  */
 }

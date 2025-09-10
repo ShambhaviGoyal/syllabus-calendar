@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Assignment } from '../types';
+import AssignmentModal from './AssignmentModal';
 
 interface CalendarProps {
   assignments: Assignment[];
+  courseInfo?: any;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ assignments }) => {
+const Calendar: React.FC<CalendarProps> = ({ assignments, courseInfo }) => {
+  const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Convert assignments to FullCalendar events
   const events = assignments.map(assignment => {
     const typeColors: { [key: string]: string } = {
@@ -37,10 +42,18 @@ const Calendar: React.FC<CalendarProps> = ({ assignments }) => {
   });
 
   const handleEventClick = (info: any) => {
-    const { title, extendedProps } = info.event;
-    const { description, type, isRequired } = extendedProps;
+    const { extendedProps } = info.event;
+    const assignment = assignments.find(a => a.id === info.event.id);
+    
+    if (assignment) {
+      setSelectedAssignment(assignment);
+      setIsModalOpen(true);
+    }
+  };
 
-    alert(`${title}\n\nType: ${type}\nRequired: ${isRequired ? 'Yes' : 'No'}\n\nDescription: ${description}`);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedAssignment(null);
   };
 
   return (
@@ -85,6 +98,14 @@ const Calendar: React.FC<CalendarProps> = ({ assignments }) => {
         eventDisplay="block"
         dayMaxEvents={3}
         moreLinkClick="popover"
+      />
+
+      {/* Assignment Modal */}
+      <AssignmentModal
+        assignment={selectedAssignment}
+        courseInfo={courseInfo}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
       />
     </div>
   );

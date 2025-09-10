@@ -31,15 +31,13 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
     setIsUploading(true);
 
     try {
-      // For mock version, we'll just send the filename
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('syllabus', selectedFile);
+
       const response = await fetch('/api/upload-syllabus', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filename: selectedFile.name
-        }),
+        body: formData,
       });
 
       const result = await response.json();
@@ -57,17 +55,22 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
-        <div className="mb-4">
-          <FileText className="mx-auto h-12 w-12 text-gray-400" />
+    <div className="w-full max-w-lg mx-auto">
+      <div className="border-2 border-dashed border-white/40 rounded-2xl p-12 text-center hover:border-blue-400/60 hover:bg-white/20 transition-all duration-300 bg-white/60 backdrop-blur-sm shadow-xl">
+        <div className="mb-6">
+          <div className="w-18 h-18 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <FileText className="h-9 w-9 text-white" />
+          </div>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">Upload Your Syllabus</h3>
+          <p className="text-gray-600 font-medium">Drag and drop your PDF file here, or click to browse</p>
         </div>
         
-        <div className="mb-4">
+        <div className="mb-6">
           <label htmlFor="file-upload" className="cursor-pointer">
-            <span className="text-sm text-gray-600">
-              Click to select a PDF syllabus or drag and drop
-            </span>
+            <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-xl hover:from-blue-700 hover:to-indigo-800 transition-all duration-200 shadow-lg hover:shadow-xl font-medium">
+              <Upload className="h-5 w-5 mr-2" />
+              Choose PDF File
+            </div>
             <input
               id="file-upload"
               type="file"
@@ -79,32 +82,41 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
         </div>
 
         {selectedFile && (
-          <div className="mb-4 p-2 bg-gray-100 rounded text-sm text-gray-700">
-            Selected: {selectedFile.name}
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <FileText className="h-5 w-5 text-green-600" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-green-800">File Selected</p>
+                <p className="text-sm text-green-600 truncate">{selectedFile.name}</p>
+              </div>
+            </div>
           </div>
         )}
 
         <button
           onClick={handleUpload}
           disabled={!selectedFile || isUploading}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          className="w-full inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
         >
           {isUploading ? (
             <>
-              <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4" />
-              Processing...
+              <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5" />
+              Processing with AI...
             </>
           ) : (
             <>
-              <Upload className="-ml-1 mr-2 h-4 w-4" />
-              Upload & Process
+              <Upload className="-ml-1 mr-3 h-5 w-5" />
+              Upload & Process Syllabus
             </>
           )}
         </button>
       </div>
 
-      <div className="mt-4 text-xs text-gray-500 text-center">
-        Upload your law school syllabus (PDF format) to automatically extract assignments and dates
+      <div className="mt-6 text-sm text-gray-500 text-center">
+        <p>Supports PDF files up to 10MB</p>
+        <p className="mt-1">AI will automatically extract assignments, readings, and important dates</p>
       </div>
     </div>
   );

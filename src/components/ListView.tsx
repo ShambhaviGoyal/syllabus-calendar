@@ -47,7 +47,7 @@ const ListView: React.FC<ListViewProps> = ({ assignments }) => {
     }
   };
 
-  const uniqueTypes = [...new Set(assignments.map(a => a.type))];
+  const uniqueTypes = Array.from(new Set(assignments.map(a => a.type)));
 
   return (
     <div className="p-6">
