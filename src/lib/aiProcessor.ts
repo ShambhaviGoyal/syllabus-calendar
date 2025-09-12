@@ -1,4 +1,5 @@
 import { ProcessedSyllabus, Assignment } from '../types';
+import { parseOperatingSystemsSyllabus } from './simpleParser';
 
 // Mock data based on the real syllabi provided
 export async function mockProcessSyllabus(filename: string): Promise<ProcessedSyllabus> {
@@ -198,8 +199,10 @@ export async function processSyllabusWithAI(text: string): Promise<ProcessedSyll
       apiKey: process.env.OPENAI_API_KEY,
     });
 
-    const prompt = `Analyze this law school syllabus and extract all assignments, readings, and important dates. 
-Return a JSON object with the following structure:
+    // Enhanced prompt with better instructions for diverse syllabus formats
+    const prompt = `You are an expert at parsing law school syllabi. Analyze this syllabus text and extract all assignments, readings, exams, and important dates.
+
+IMPORTANT: Return ONLY a valid JSON object with this exact structure:
 
 {
   "courseInfo": {
@@ -223,30 +226,31 @@ Return a JSON object with the following structure:
   ]
 }
 
-Important guidelines:
-1. Extract ALL dates that have associated tasks, readings, or assignments
-2. For reading assignments, use type "reading"
-3. For written work due dates, use type "assignment"
-4. For exams and oral arguments, use type "exam" or "presentation"
-5. For conferences/meetings, use type "conference"
-6. Make titles concise but descriptive
-7. Include page numbers and chapter references in descriptions
-8. If a date has multiple tasks, create separate entries for each
-9. Use the year 2025 for dates that don't specify a year
-10. Only include dates that have specific academic activities
-11. Set isRequired to true for all academic activities
-12. Extract specific times if mentioned (e.g., "8:00 PM" becomes "20:00")
+EXTRACTION RULES:
+1. Look for dates in ANY format: "Jan 15", "January 15th", "1/15", "15 Jan", etc.
+2. Extract ALL academic activities: readings, assignments, exams, presentations, meetings
+3. For each date with activities, create separate assignment entries
+4. Use these types: "reading" (for readings), "assignment" (for written work), "exam" (for tests), "presentation" (for oral presentations), "conference" (for meetings), "other" (for everything else)
+5. Make titles descriptive but concise
+6. Include page numbers, chapters, and specific instructions in descriptions
+7. If no year is specified, use 2025
+8. Extract times in 24-hour format (e.g., "8:00 PM" = "20:00")
+9. Set isRequired to true for all academic activities
+10. If you find a schedule table, extract each row as a separate assignment
+11. Look for due dates, deadlines, and important milestones
 
-Syllabus text:
+Syllabus text to analyze:
 ${text}
 
-Return ONLY the JSON object, no additional text.`;
+Return ONLY the JSON object. Do not include any explanations or additional text.`;
+
+    console.log('Sending request to OpenAI with text length:', text.length);
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Using cheaper model for cost efficiency
+      model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.1,
-      max_tokens: 3000,
+      max_tokens: 4000, // Increased token limit
     });
 
     const response = completion.choices[0]?.message?.content;
@@ -254,8 +258,36 @@ Return ONLY the JSON object, no additional text.`;
       throw new Error('No response from OpenAI');
     }
 
+    console.log('OpenAI response received, length:', response.length);
+    console.log('Raw response preview:', response.substring(0, 200) + '...');
+
+    // Clean the response to extract JSON
+    let jsonString = response.trim();
+    
+    // Remove any markdown code blocks if present
+    if (jsonString.startsWith('```json')) {
+      jsonString = jsonString.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (jsonString.startsWith('```')) {
+      jsonString = jsonString.replace(/^```\s*/, '').replace(/\s*```$/, '');
+    }
+
+    // Find the first { and last } to extract JSON
+    const firstBrace = jsonString.indexOf('{');
+    const lastBrace = jsonString.lastIndexOf('}');
+    
+    if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+      jsonString = jsonString.substring(firstBrace, lastBrace + 1);
+    }
+
+    console.log('Cleaned JSON string preview:', jsonString.substring(0, 200) + '...');
+
     // Parse the JSON response
-    const parsed = JSON.parse(response);
+    const parsed = JSON.parse(jsonString);
+    
+    // Validate the structure
+    if (!parsed.courseInfo || !parsed.assignments || !Array.isArray(parsed.assignments)) {
+      throw new Error('Invalid response structure from AI');
+    }
     
     // Add unique IDs if missing and ensure required fields
     parsed.assignments = parsed.assignments.map((assignment: any, index: number) => ({
@@ -264,12 +296,29 @@ Return ONLY the JSON object, no additional text.`;
       isRequired: assignment.isRequired !== undefined ? assignment.isRequired : true,
     }));
 
+    console.log('Successfully parsed AI response:', {
+      courseTitle: parsed.courseInfo.title,
+      assignmentCount: parsed.assignments.length,
+      firstAssignment: parsed.assignments[0]?.title
+    });
+
     return {
       ...parsed,
       success: true,
     };
   } catch (error) {
     console.error('Error processing with AI:', error);
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
+    // Try simple parser for Operating Systems syllabus
+    if (text.toLowerCase().includes('operating systems') || text.toLowerCase().includes('cse 421')) {
+      console.log('Trying simple parser for Operating Systems syllabus');
+      return parseOperatingSystemsSyllabus(text);
+    }
+    
     // Fall back to mock data if AI fails
     console.log('Falling back to mock data due to AI error');
     return mockProcessSyllabus(text.substring(0, 100));

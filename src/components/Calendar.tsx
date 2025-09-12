@@ -24,6 +24,14 @@ const Calendar: React.FC<CalendarProps> = ({ assignments, courseInfo }) => {
       other: '#6B7280'        // Gray
     };
 
+    // Validate date format
+    const dateStr = assignment.date;
+    const isValidDate = /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
+    
+    if (!isValidDate) {
+      console.warn('Invalid date format for assignment:', assignment.title, 'Date:', dateStr);
+    }
+
     return {
       id: assignment.id,
       title: assignment.title,

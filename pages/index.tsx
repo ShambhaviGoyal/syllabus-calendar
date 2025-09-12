@@ -13,9 +13,18 @@ export default function Home() {
   const [isGoogleConnected, setIsGoogleConnected] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
 
-  const handleUploadSuccess = (data: ProcessedSyllabus) => {
+  const handleUploadSuccess = (data: ProcessedSyllabus, isMockData?: boolean, message?: string) => {
     setSyllabusData(data)
     setError('')
+    
+    // Save to localStorage so it persists across page reloads
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('syllabus_data', JSON.stringify(data));
+    }
+    
+    if (isMockData) {
+      setError(`⚠️ ${message || 'AI processing failed, showing sample data. Please check the console for details.'}`)
+    }
   }
 
   const handleUploadError = (errorMessage: string) => {
@@ -139,10 +148,27 @@ export default function Home() {
 
   // Check Google connection status on component mount
   useEffect(() => {
-    // Clear any existing token to force fresh OAuth flow
-    localStorage.removeItem('google_calendar_token');
-    localStorage.removeItem('google_calendar_connected');
-    setIsGoogleConnected(false);
+    // Check if Google Calendar is already connected
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('google_calendar_token');
+      setIsGoogleConnected(!!token);
+      
+      // Also check if we have syllabus data
+      const existingData = localStorage.getItem('syllabus_data');
+      if (existingData) {
+        try {
+          const parsedData = JSON.parse(existingData);
+          setSyllabusData(parsedData);
+        } catch (error) {
+          console.error('Error parsing stored syllabus data:', error);
+        }
+      }
+      
+      // Force check for Google connection
+      if (token) {
+        setIsGoogleConnected(true);
+      }
+    }
   }, []);
 
   return (
@@ -160,8 +186,8 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <div className="flex items-center">
-                <div className="p-3 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl mr-4 shadow-lg">
-                  <BookOpen className="h-8 w-8 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                  <BookOpen className="h-6 w-6 text-white" />
                 </div>
                 <div>
                   <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
@@ -171,12 +197,23 @@ export default function Home() {
                 </div>
               </div>
               {syllabusData && (
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
-                >
-                  Upload New Syllabus
-                </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleReset}
+                    className="px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm hover:shadow-md"
+                  >
+                    Upload New Syllabus
+                  </button>
+                  <button
+                    onClick={() => {
+                      localStorage.clear();
+                      window.location.reload();
+                    }}
+                    className="px-4 py-3 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 hover:border-red-300 transition-all duration-200 shadow-sm hover:shadow-md"
+                  >
+                    Clear All Data
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -209,15 +246,27 @@ export default function Home() {
               </div>
 
               {error && (
-                <div className="max-w-md mx-auto mb-4 p-6 bg-red-50 border border-red-200 rounded-xl shadow-sm">
+                <div className={`max-w-md mx-auto mb-4 p-6 rounded-xl shadow-sm ${
+                  error.includes('⚠️') 
+                    ? 'bg-yellow-50 border border-yellow-200' 
+                    : 'bg-red-50 border border-red-200'
+                }`}>
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                      </svg>
+                      {error.includes('⚠️') ? (
+                        <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                        </svg>
+                      )}
                     </div>
                     <div className="ml-3">
-                      <p className="text-sm text-red-600">{error}</p>
+                      <p className={`text-sm ${error.includes('⚠️') ? 'text-yellow-600' : 'text-red-600'}`}>
+                        {error}
+                      </p>
                     </div>
                   </div>
                 </div>

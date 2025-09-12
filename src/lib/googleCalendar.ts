@@ -1,7 +1,6 @@
 import { Assignment, CourseInfo } from '../types';
 
 // Google Calendar API configuration
-const GOOGLE_CALENDAR_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_API_KEY;
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 export interface GoogleCalendarEvent {
@@ -73,6 +72,12 @@ export class GoogleCalendarService {
   // Convert assignment to Google Calendar event
   private assignmentToGoogleEvent(assignment: Assignment, courseInfo?: CourseInfo): GoogleCalendarEvent {
     const startDate = new Date(assignment.date);
+    
+    // Check if date is valid
+    if (isNaN(startDate.getTime())) {
+      throw new Error(`Invalid date format: ${assignment.date}`);
+    }
+    
     const endDate = new Date(startDate);
     endDate.setDate(endDate.getDate() + 1);
 
@@ -130,16 +135,17 @@ export class GoogleCalendarService {
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        
         if (response.status === 401) {
           this.clearAccessToken();
           throw new Error('Authentication expired. Please re-authenticate.');
         }
-        throw new Error(`Failed to create event: ${response.statusText}`);
+        throw new Error(`Failed to create event: ${response.status} - ${errorData.error?.message || response.statusText}`);
       }
 
       return true;
     } catch (error) {
-      console.error('Error creating Google Calendar event:', error);
       throw error;
     }
   }
@@ -160,7 +166,6 @@ export class GoogleCalendarService {
         // Add small delay to avoid rate limiting
         await new Promise(resolve => setTimeout(resolve, 100));
       } catch (error) {
-        console.error(`Failed to create event for ${assignment.title}:`, error);
         failed++;
       }
     }

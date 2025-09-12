@@ -3,7 +3,7 @@ import { Upload, FileText, Loader2 } from 'lucide-react';
 import { ProcessedSyllabus } from '../types';
 
 interface FileUploadProps {
-  onUploadSuccess: (data: ProcessedSyllabus) => void;
+  onUploadSuccess: (data: ProcessedSyllabus, isMockData?: boolean, message?: string) => void;
   onUploadError: (error: string) => void;
 }
 
@@ -43,7 +43,7 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
       const result = await response.json();
 
       if (result.success && result.data) {
-        onUploadSuccess(result.data);
+        onUploadSuccess(result.data, result.isMockData, result.message);
       } else {
         onUploadError(result.error || 'Upload failed');
       }
@@ -58,8 +58,8 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
     <div className="w-full max-w-lg mx-auto">
       <div className="border-2 border-dashed border-white/40 rounded-2xl p-12 text-center hover:border-blue-400/60 hover:bg-white/20 transition-all duration-300 bg-white/60 backdrop-blur-sm shadow-xl">
         <div className="mb-6">
-          <div className="w-18 h-18 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <FileText className="h-9 w-9 text-white" />
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <FileText className="h-8 w-8 text-white" />
           </div>
           <h3 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">Upload Your Syllabus</h3>
           <p className="text-gray-600 font-medium">Drag and drop your PDF file here, or click to browse</p>

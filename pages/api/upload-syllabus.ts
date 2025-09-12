@@ -36,32 +36,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
     }
 
-    console.log('Processing uploaded file:', file.originalFilename);
-
     // Read the file buffer
     const fileBuffer = fs.readFileSync(file.filepath);
     
     // Extract text from PDF
     const rawText = await extractTextFromPDF(fileBuffer);
     const cleanedText = cleanText(rawText);
-    
-    console.log('Extracted text length:', cleanedText.length);
 
     // Process with AI
     const result = await processSyllabusWithAI(cleanedText);
-    
-    console.log('AI processing result:', {
-      success: result.success,
-      assignmentCount: result.assignments.length,
-      courseTitle: result.courseInfo.title
-    });
+
+    // Check if we got mock data (indicates AI processing failed)
+    const isMockData = result.courseInfo.title === "Legal Communication and Research Skills II" || 
+                      result.courseInfo.title === "Contracts" ||
+                      result.assignments.length === 0 ||
+                      (result.assignments.length > 0 && result.assignments[0].title.includes("Course Introduction"));
 
     // Clean up the temporary file
     fs.unlinkSync(file.filepath);
 
     res.json({
       success: true,
-      data: result
+      data: result,
+      isMockData: isMockData,
+      message: isMockData ? 'AI processing failed, showing sample data. Please check the console for details.' : 'Syllabus processed successfully'
     });
 
   } catch (error) {
