@@ -18,8 +18,7 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 
 ## 🚀 Live Demo
 
-- **Live App**: [https://syllabustocalendar-alpha.vercel.app/](https://syllabustocalendar-alpha.vercel.app/)
-- **GitHub Repo**: [https://github.com/ShambhaviGoyal/syllabus-calendar](https://github.com/ShambhaviGoyal/syllabus-calendar)
+- **Please click here for the Live Demo**: [Live Demo](https://syllabustocalendar-alpha.vercel.app/)
 
 **🎯 Try the Google Calendar Integration!** Upload a syllabus and click "Sync to Google Calendar" to see the complete OAuth 2.0 flow in action!
 
