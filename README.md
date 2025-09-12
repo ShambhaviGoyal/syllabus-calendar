@@ -15,7 +15,6 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 - 📤 **Calendar Export**: Export to ICS format for any calendar app
 - 🔗 **Google Calendar Integration**: Direct sync with Google Calendar (optional)
 - 🎨 **Modern UI/UX**: Beautiful glass-morphism design with gradient backgrounds and professional typography
-- 📱 **Mobile Friendly**: Fully responsive design that works on all devices
 
 ## 🚀 Live Demo
 
@@ -143,7 +142,6 @@ The extracted data is formatted and displayed in:
   - ⚪ Gray: Other events
 - Click events for detailed information with modal popup
 - Month/week view toggle
-- Responsive design with smooth animations
 - Professional glass-morphism UI
 
 ### List View
@@ -223,7 +221,7 @@ Set these in your Vercel dashboard:
 🎯 **Production Ready:**
 - All features fully functional and tested
 - Professional UI with glass-morphism design
-- Mobile-responsive design
+- Desktop-optimized design
 - Cross-platform calendar compatibility
 - Perfect for LawBandit internship demonstration
 
@@ -249,7 +247,7 @@ If no API key is provided, the app uses realistic mock data based on actual law 
 1. **Intuitive Upload**: Drag-and-drop interface with clear instructions
 2. **Dual Views**: Calendar for visual overview, list for detailed information
 3. **Modern Design**: Glass-morphism UI with gradient backgrounds and professional typography
-4. **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+4. **Desktop Optimized**: Designed for desktop and laptop use
 5. **Error Handling**: Graceful fallbacks and clear error messages
 6. **Interactive Elements**: Smooth animations and hover effects
 
@@ -266,7 +264,7 @@ If no API key is provided, the app uses realistic mock data based on actual law 
 - Google Calendar integration (working)
 - ICS export for all devices
 - Professional UI/UX design
-- Mobile-responsive interface
+- Desktop-optimized interface
 - Data persistence
 - Clean, maintainable code
 
