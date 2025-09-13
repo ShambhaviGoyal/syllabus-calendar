@@ -13,6 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Exchange authorization code for access token
+    console.log('Google Auth API - Client ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    console.log('Google Auth API - Client Secret:', process.env.GOOGLE_CLIENT_SECRET ? 'Present' : 'Missing');
+    console.log('Google Auth API - Code:', code);
+    
     const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
       headers: {

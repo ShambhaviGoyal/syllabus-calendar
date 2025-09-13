@@ -41,6 +41,9 @@ export class GoogleCalendarService {
     const redirectUri = 'https://syllabustocalendar-alpha.vercel.app/auth/google/callback';
     const scope = 'https://www.googleapis.com/auth/calendar';
     
+    console.log('Google Client ID:', GOOGLE_CLIENT_ID);
+    console.log('Redirect URI:', redirectUri);
+    
     const params = new URLSearchParams({
       client_id: GOOGLE_CLIENT_ID || '',
       redirect_uri: redirectUri,
@@ -50,7 +53,10 @@ export class GoogleCalendarService {
       prompt: 'consent'
     });
 
-    return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+    console.log('Generated Auth URL:', authUrl);
+    
+    return authUrl;
   }
 
   // Set access token
