@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Exchange authorization code for access token
-    console.log('Google Auth API - Client ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    console.log('Google Auth API - Client ID:', process.env.GOOGLE_CLIENT_ID);
     console.log('Google Auth API - Client Secret:', process.env.GOOGLE_CLIENT_SECRET ? 'Present' : 'Missing');
     console.log('Google Auth API - Code:', code);
     
@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
+        client_id: process.env.GOOGLE_CLIENT_ID || '',
         client_secret: process.env.GOOGLE_CLIENT_SECRET || '',
         code: code,
         grant_type: 'authorization_code',
@@ -32,7 +32,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     if (!tokenResponse.ok) {
-      throw new Error('Failed to exchange authorization code for token');
+      const errorText = await tokenResponse.text();
+      console.error('Token exchange failed:', tokenResponse.status, errorText);
+      throw new Error(`Failed to exchange authorization code for token: ${tokenResponse.status} - ${errorText}`);
     }
 
     const tokenData = await tokenResponse.json();
