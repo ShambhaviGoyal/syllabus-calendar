@@ -175,9 +175,46 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Simple Professional Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+          {/* Simple floating orbs */}
+          <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob"></div>
+          <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob animation-delay-4000"></div>
+          
+          {/* Simple floating elements */}
+          <div className="absolute top-20 left-10 text-blue-400/20 text-6xl font-mono animate-float-code">
+            &lt;/&gt;
+          </div>
+          <div className="absolute top-40 right-20 text-indigo-400/20 text-4xl font-mono animate-float-code-delayed">
+            { }
+          </div>
+          <div className="absolute top-60 left-1/4 text-purple-400/20 text-5xl font-mono animate-float-code-slow">
+            [ ]
+          </div>
+          <div className="absolute top-80 right-1/3 text-cyan-400/20 text-3xl font-mono animate-float-code">
+            ( )
+          </div>
+          <div className="absolute top-32 left-1/2 text-pink-400/20 text-4xl font-mono animate-float-code-delayed">
+            &lt; &gt;
+          </div>
+          
+          {/* Simple grid pattern */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-5 animate-grid-move"></div>
+          
+          {/* Simple floating particles */}
+          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-blue-400/40 rounded-full animate-particle-trail"></div>
+          <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-indigo-400/50 rounded-full animate-particle-trail-delayed"></div>
+          <div className="absolute top-1/2 left-1/5 w-4 h-4 bg-purple-400/30 rounded-full animate-particle-trail-slow"></div>
+          <div className="absolute top-2/3 right-1/5 w-2 h-2 bg-cyan-400/40 rounded-full animate-particle-trail"></div>
+          <div className="absolute top-3/4 left-2/3 w-3 h-3 bg-pink-400/50 rounded-full animate-particle-trail-delayed"></div>
+          
+          {/* Subtle overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-white/20"></div>
+        </div>
         {/* Header */}
-        <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20">
+        <header className="relative z-10 bg-white/90 backdrop-blur-xl shadow-2xl border-b border-white/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
               <div className="flex items-center">
@@ -214,7 +251,7 @@ export default function Home() {
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {!syllabusData ? (
             /* Upload Section */
             <div className="text-center">
@@ -438,7 +475,7 @@ export default function Home() {
         </main>
 
         {/* Footer */}
-        <footer className="bg-white border-t mt-12">
+        <footer className="relative z-10 bg-white border-t mt-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <p className="text-center text-sm text-gray-500">
               Built for Law Bandit Software Internship Application
