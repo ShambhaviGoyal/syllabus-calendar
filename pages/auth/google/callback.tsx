@@ -42,10 +42,19 @@ export default function GoogleCallback() {
           setStatus('success');
           setMessage('Successfully connected to Google Calendar!');
           
-          // Redirect back to the main page after 5 seconds to allow reading
-          setTimeout(() => {
-            router.push('/');
-          }, 5000);
+          // Check if there's existing syllabus data to show calendar view
+          const existingData = localStorage.getItem('syllabus_data');
+          if (existingData) {
+            // Redirect to calendar view with existing data
+            setTimeout(() => {
+              router.push('/?showCalendar=true');
+            }, 2000);
+          } else {
+            // Redirect to homepage to upload syllabus
+            setTimeout(() => {
+              router.push('/');
+            }, 2000);
+          }
         } else {
           setStatus('error');
           setMessage(result.error || 'Authentication failed.');
@@ -105,9 +114,9 @@ export default function GoogleCallback() {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-blue-800">Next Step:</h3>
+                    <h3 className="text-sm font-medium text-blue-800">Redirecting...</h3>
                     <div className="mt-2 text-sm text-blue-700">
-                      <p>Now click <strong>"Sync to Google Calendar"</strong> to add your syllabus events to your calendar!</p>
+                      <p>Taking you back to your calendar view where you can sync your syllabus events!</p>
                     </div>
                   </div>
                 </div>

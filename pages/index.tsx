@@ -138,8 +138,24 @@ export default function Home() {
       const token = localStorage.getItem('google_calendar_token');
       setIsGoogleConnected(!!token);
       
-      // Note: Removed automatic syllabus data loading to ensure users always see homepage first
-      // Users can still access their previous data through the "Upload New Syllabus" flow
+      // Check if we should show calendar view (after Google auth)
+      const urlParams = new URLSearchParams(window.location.search);
+      const showCalendar = urlParams.get('showCalendar');
+      
+      if (showCalendar === 'true') {
+        // Load existing syllabus data to show calendar view
+        const existingData = localStorage.getItem('syllabus_data');
+        if (existingData) {
+          try {
+            const parsedData = JSON.parse(existingData);
+            setSyllabusData(parsedData);
+            // Clean up the URL parameter
+            window.history.replaceState({}, document.title, window.location.pathname);
+          } catch (error) {
+            console.error('Error parsing stored syllabus data:', error);
+          }
+        }
+      }
       
       // Force check for Google connection
       if (token) {
