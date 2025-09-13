@@ -3,6 +3,11 @@ import { Assignment, CourseInfo } from '../types';
 // Google Calendar API configuration
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
+// Debug logging
+console.log('GoogleCalendar.ts loaded');
+console.log('Environment check:', typeof window !== 'undefined' ? 'Browser' : 'Server');
+console.log('GOOGLE_CLIENT_ID:', GOOGLE_CLIENT_ID);
+
 export interface GoogleCalendarEvent {
   summary: string;
   description?: string;

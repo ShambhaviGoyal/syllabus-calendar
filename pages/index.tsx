@@ -72,8 +72,12 @@ export default function Home() {
   }
 
   const handleGoogleAuth = () => {
+    console.log('Google Auth button clicked!');
+    console.log('NEXT_PUBLIC_GOOGLE_CLIENT_ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    
     // Check if we have Google Client ID configured
     if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+      console.log('No Google Client ID found, using demo mode');
       // Demo mode - simulate connection for testing
       setIsGoogleLoading(true);
       setTimeout(() => {
