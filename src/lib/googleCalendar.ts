@@ -38,7 +38,7 @@ export class GoogleCalendarService {
 
   // Get Google Calendar authorization URL
   getAuthUrl(): string {
-    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    const redirectUri = 'https://syllabustocalendar-alpha.vercel.app/auth/google/callback';
     const scope = 'https://www.googleapis.com/auth/calendar';
     
     const params = new URLSearchParams({
