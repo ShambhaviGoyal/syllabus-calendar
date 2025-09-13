@@ -20,6 +20,10 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 
 - **Please click here for the Live Demo**: [Live Demo](https://syllabustocalendar-alpha.vercel.app/)
 
+### 📹 Demo Video
+
+A comprehensive demo video is available! See [Issue #1](https://github.com/ShambhaviGoyal/syllabus-calendar/issues/1) for details on how to access the demo video.
+
 **🎯 Try the Google Calendar Integration!** Upload a syllabus and click "Sync to Google Calendar" to see the complete OAuth 2.0 flow in action!
 
 ## 🛠️ Technology Stack
