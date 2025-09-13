@@ -24,10 +24,8 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 
 Watch the application in action:
 
-<video width="100%" controls autoplay muted loop>
-  <source src="https://github.com/ShambhaviGoyal/syllabus-calendar/assets/demovideo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<video src="assets/demovideo.mp4" controls width="600"></video>
+
 
 **What's demonstrated:**
 - PDF upload and AI processing
