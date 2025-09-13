@@ -22,7 +22,16 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 
 ### 📹 Demo Video
 
-A comprehensive demo video is available! See [Issue #1](https://github.com/ShambhaviGoyal/syllabus-calendar/issues/1) for details on how to access the demo video.
+Watch the application in action:
+
+https://github.com/ShambhaviGoyal/syllabus-calendar/assets/demovideo.mp4
+
+**What's demonstrated:**
+- PDF upload and AI processing
+- Interactive calendar view with color-coded assignments
+- Google Calendar integration and OAuth flow
+- Export functionality (ICS format)
+- Professional UI/UX features
 
 **🎯 Try the Google Calendar Integration!** Upload a syllabus and click "Sync to Google Calendar" to see the complete OAuth 2.0 flow in action!
 
