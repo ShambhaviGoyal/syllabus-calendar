@@ -42,10 +42,10 @@ export default function GoogleCallback() {
           setStatus('success');
           setMessage('Successfully connected to Google Calendar!');
           
-          // Redirect back to the main page after a short delay
+          // Redirect back to the main page after 5 seconds to allow reading
           setTimeout(() => {
             router.push('/');
-          }, 2000);
+          }, 5000);
         } else {
           setStatus('error');
           setMessage(result.error || 'Authentication failed.');
@@ -112,7 +112,6 @@ export default function GoogleCallback() {
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-500">Redirecting you back to the app...</p>
             </div>
           )}
 
