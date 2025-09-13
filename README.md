@@ -23,11 +23,8 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 ### 📹 Demo Video
 
 Watch the application in action:
+[▶️ Watch the Demo](https://github.com/user-attachments/assets/db7d39a6-07b7-4120-99b2-cf28a8b65a0f)
 
-<video width="100%" controls autoplay muted loop>
-  <source src="https://github.com/ShambhaviGoyal/syllabus-calendar/assets/demovideo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 **What's demonstrated:**
 - PDF upload and AI processing
