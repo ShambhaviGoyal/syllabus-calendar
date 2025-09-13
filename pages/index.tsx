@@ -4,6 +4,7 @@ import FileUpload from '../src/components/FileUpload'
 import Calendar from '../src/components/Calendar'
 import ListView from '../src/components/ListView'
 import { ProcessedSyllabus } from '../src/types'
+import { GoogleCalendarService } from '../src/lib/googleCalendar'
 import { Calendar as CalendarIcon, List, BookOpen, Download, Calendar as CalendarExport, FileText, Plus } from 'lucide-react'
 
 export default function Home() {
@@ -74,7 +75,6 @@ export default function Home() {
   const handleGoogleAuth = () => {
     console.log('Google Auth button clicked!');
     console.log('NEXT_PUBLIC_GOOGLE_CLIENT_ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
-    console.log('All env vars:', Object.keys(process.env).filter(key => key.startsWith('NEXT_PUBLIC')));
     
     // Check if we have Google Client ID configured
     if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
@@ -83,26 +83,11 @@ export default function Home() {
       return;
     }
 
-    // Redirect to Google OAuth
-    const redirectUri = `${window.location.origin}/auth/google/callback`;
-    const scope = 'https://www.googleapis.com/auth/calendar';
+    // Use GoogleCalendarService to get the auth URL
+    const googleService = new GoogleCalendarService();
+    const authUrl = googleService.getAuthUrl();
     
-    console.log('Building OAuth URL with:');
-    console.log('- Client ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
-    console.log('- Redirect URI:', redirectUri);
-    console.log('- Scope:', scope);
-    
-    const params = new URLSearchParams({
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      redirect_uri: redirectUri,
-      response_type: 'code',
-      scope: scope,
-      access_type: 'offline',
-      prompt: 'consent'
-    });
-
-    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-    console.log('Full OAuth URL:', authUrl);
+    console.log('Generated OAuth URL:', authUrl);
     console.log('Redirecting to Google OAuth...');
     window.location.href = authUrl;
   }
