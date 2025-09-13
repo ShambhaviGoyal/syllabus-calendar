@@ -10,12 +10,16 @@ export default function DebugOAuth() {
       appUrl: process.env.NEXT_PUBLIC_APP_URL,
       vercelUrl: process.env.NEXT_PUBLIC_VERCEL_URL,
       allNextPublicVars: Object.keys(process.env).filter(key => key.startsWith('NEXT_PUBLIC')),
+      allEnvVars: Object.keys(process.env).filter(key => key.includes('GOOGLE') || key.includes('VERCEL')),
       currentUrl: typeof window !== 'undefined' ? window.location.origin : 'server',
-      userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'server'
+      userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'server',
+      nodeEnv: process.env.NODE_ENV,
+      isServer: typeof window === 'undefined'
     };
     
     setDebugInfo(info);
     console.log('Debug OAuth Info:', info);
+    console.log('All process.env keys:', Object.keys(process.env));
   }, []);
 
   const generateOAuthUrl = () => {
