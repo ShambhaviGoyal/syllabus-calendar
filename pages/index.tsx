@@ -148,16 +148,8 @@ export default function Home() {
       const token = localStorage.getItem('google_calendar_token');
       setIsGoogleConnected(!!token);
       
-      // Also check if we have syllabus data
-      const existingData = localStorage.getItem('syllabus_data');
-      if (existingData) {
-        try {
-          const parsedData = JSON.parse(existingData);
-          setSyllabusData(parsedData);
-        } catch (error) {
-          console.error('Error parsing stored syllabus data:', error);
-        }
-      }
+      // Note: Removed automatic syllabus data loading to ensure users always see homepage first
+      // Users can still access their previous data through the "Upload New Syllabus" flow
       
       // Force check for Google connection
       if (token) {
