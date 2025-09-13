@@ -74,17 +74,12 @@ export default function Home() {
   const handleGoogleAuth = () => {
     console.log('Google Auth button clicked!');
     console.log('NEXT_PUBLIC_GOOGLE_CLIENT_ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    console.log('All env vars:', Object.keys(process.env).filter(key => key.startsWith('NEXT_PUBLIC')));
     
     // Check if we have Google Client ID configured
     if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
       console.log('No Google Client ID found, using demo mode');
-      // Demo mode - simulate connection for testing
-      setIsGoogleLoading(true);
-      setTimeout(() => {
-        setIsGoogleConnected(true);
-        setIsGoogleLoading(false);
-        alert('Demo mode: Google Calendar connection simulated. In production, this would redirect to Google OAuth.');
-      }, 2000);
+      alert('No Google Client ID found! Check Vercel environment variables.');
       return;
     }
 
@@ -152,6 +147,10 @@ export default function Home() {
 
   // Check Google connection status on component mount
   useEffect(() => {
+    console.log('Page loaded - checking environment variables');
+    console.log('NEXT_PUBLIC_GOOGLE_CLIENT_ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    console.log('All NEXT_PUBLIC env vars:', Object.keys(process.env).filter(key => key.startsWith('NEXT_PUBLIC')));
+    
     // Check if Google Calendar is already connected
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('google_calendar_token');
