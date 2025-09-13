@@ -22,13 +22,7 @@ This project was built for the **LawBandit Software Internship Application** (Fa
 
 ### 📹 Demo Video
 
-Watch the application in action:
-
-[![Demo Video](https://img.shields.io/badge/🎬%20Watch%20Demo-Video%20Available-blue?style=for-the-badge)](https://github.com/ShambhaviGoyal/syllabus-calendar/assets/demovideo.mp4)
-
-**📺 [Click here to watch the full demo video](https://github.com/ShambhaviGoyal/syllabus-calendar/assets/demovideo.mp4)**
-
-> **Note**: The video will open in a new tab. For the best viewing experience, click the link above to watch the complete demonstration.
+Watch the application in action: [▶️ Watch the Demo](https://github.com/user-attachments/assets/d8963398-1dbe-4813-88c9-b834e7ae47d8)
 
 **What's demonstrated:**
 - PDF upload and AI processing
