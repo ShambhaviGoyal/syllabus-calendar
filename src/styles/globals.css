@@ -27,7 +27,242 @@ body {
   background: #94a3b8;
 }
 
-/* Professional animated background elements */
+/* Professional animated background elements - Employer Attraction */
+@keyframes professional-float {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translate(40px, -60px) scale(1.05) rotate(90deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(0.95) rotate(180deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(30px, -40px) scale(1.02) rotate(270deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1) rotate(360deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes geometric-professional {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg) scale(1.05);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    transform: translateY(-35px) rotate(180deg) scale(0.95);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg) scale(1.02);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  }
+}
+
+@keyframes geometric-professional-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+  }
+  25% {
+    transform: translateY(-18px) rotate(-90deg) scale(1.08);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    transform: translateY(-32px) rotate(-180deg) scale(0.92);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+  }
+  75% {
+    transform: translateY(-18px) rotate(-270deg) scale(1.03);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  }
+}
+
+@keyframes geometric-professional-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+  }
+  33% {
+    transform: translateY(-25px) rotate(120deg) scale(1.1);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  }
+  66% {
+    transform: translateY(-45px) rotate(240deg) scale(0.9);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes code-professional {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.25;
+  }
+  25% {
+    transform: translateY(-25px) rotate(90deg) scale(1.05);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-45px) rotate(180deg) scale(0.95);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-25px) rotate(270deg) scale(1.02);
+    opacity: 0.4;
+  }
+}
+
+@keyframes code-professional-delayed {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.2;
+  }
+  25% {
+    transform: translateY(-22px) rotate(-90deg) scale(1.08);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-40px) rotate(-180deg) scale(0.92);
+    opacity: 0.25;
+  }
+  75% {
+    transform: translateY(-22px) rotate(-270deg) scale(1.03);
+    opacity: 0.35;
+  }
+}
+
+@keyframes code-professional-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.15;
+  }
+  33% {
+    transform: translateY(-30px) rotate(120deg) scale(1.1);
+    opacity: 0.25;
+  }
+  66% {
+    transform: translateY(-55px) rotate(240deg) scale(0.9);
+    opacity: 0.2;
+  }
+}
+
+@keyframes particle-professional {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-15px, 25px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(25px, -20px) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+@keyframes particle-professional-delayed {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translate(18px, -25px) scale(1.15);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-12px, 20px) scale(0.85);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(22px, -15px) scale(1.08);
+    opacity: 0.7;
+  }
+}
+
+@keyframes particle-professional-slow {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.4;
+  }
+  33% {
+    transform: translate(25px, -35px) scale(1.2);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-18px, 30px) scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+@keyframes twinkle-professional {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3);
+  }
+}
+
+@keyframes twinkle-professional-delayed {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes twinkle-professional-slow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes grid-professional {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(50px) translateY(50px);
+  }
+}
+
 @keyframes blob {
   0% {
     transform: translate(0px, 0px) scale(1);
@@ -150,6 +385,91 @@ body {
   }
 }
 
+/* Professional Animation Classes - Employer Attraction */
+.animate-professional-float {
+  animation: professional-float 12s ease-in-out infinite;
+}
+
+.animate-geometric-professional {
+  animation: geometric-professional 8s ease-in-out infinite;
+}
+
+.animate-geometric-professional-delayed {
+  animation: geometric-professional-delayed 9s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-geometric-professional-slow {
+  animation: geometric-professional-slow 11s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+.animate-code-professional {
+  animation: code-professional 10s ease-in-out infinite;
+}
+
+.animate-code-professional-delayed {
+  animation: code-professional-delayed 12s ease-in-out infinite;
+  animation-delay: 2.5s;
+}
+
+.animate-code-professional-slow {
+  animation: code-professional-slow 14s ease-in-out infinite;
+  animation-delay: 5s;
+}
+
+.animate-particle-professional {
+  animation: particle-professional 8s ease-in-out infinite;
+}
+
+.animate-particle-professional-delayed {
+  animation: particle-professional-delayed 10s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-particle-professional-slow {
+  animation: particle-professional-slow 12s ease-in-out infinite;
+  animation-delay: 3.5s;
+}
+
+.animate-twinkle-professional {
+  animation: twinkle-professional 4s ease-in-out infinite;
+}
+
+.animate-twinkle-professional-delayed {
+  animation: twinkle-professional-delayed 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-twinkle-professional-slow {
+  animation: twinkle-professional-slow 6s ease-in-out infinite;
+  animation-delay: 2.5s;
+}
+
+.animate-grid-professional {
+  animation: grid-professional 25s linear infinite;
+}
+
+.bg-professional-grid {
+  background-image: 
+    linear-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-6000 {
+  animation-delay: 6s;
+}
+
+/* Legacy animations for compatibility */
 .animate-blob {
   animation: blob 7s ease-in-out infinite;
 }

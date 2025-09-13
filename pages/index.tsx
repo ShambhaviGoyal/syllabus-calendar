@@ -176,42 +176,63 @@ export default function Home() {
       </Head>
 
       <div className="min-h-screen relative overflow-hidden">
-        {/* Simple Professional Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-          {/* Simple floating orbs */}
-          <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob"></div>
-          <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300/30 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-blob animation-delay-4000"></div>
+        {/* Professional Dynamic Background - Employer Attraction */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+          {/* Elegant floating orbs with professional colors */}
+          <div className="absolute top-0 -left-8 w-80 h-80 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-professional-float"></div>
+          <div className="absolute top-0 -right-8 w-80 h-80 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-professional-float animation-delay-3000"></div>
+          <div className="absolute -bottom-12 left-1/4 w-80 h-80 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-professional-float animation-delay-6000"></div>
           
-          {/* Simple floating elements */}
-          <div className="absolute top-20 left-10 text-blue-400/20 text-6xl font-mono animate-float-code">
+          {/* Professional floating geometric shapes */}
+          <div className="absolute top-16 left-12 w-16 h-16 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 rounded-lg animate-geometric-professional shadow-lg shadow-blue-400/20">
+            <div className="w-full h-full bg-gradient-to-r from-blue-500/40 to-cyan-500/40 rounded-lg animate-pulse-subtle"></div>
+          </div>
+          <div className="absolute top-32 right-16 w-12 h-12 bg-gradient-to-r from-indigo-500/30 to-purple-500/30 rounded-full animate-geometric-professional-delayed shadow-lg shadow-indigo-400/20">
+            <div className="w-full h-full bg-gradient-to-r from-indigo-500/40 to-purple-500/40 rounded-full animate-pulse-subtle"></div>
+          </div>
+          <div className="absolute top-48 left-1/3 w-14 h-14 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 rounded-lg animate-geometric-professional-slow shadow-lg shadow-emerald-400/20">
+            <div className="w-full h-full bg-gradient-to-r from-emerald-500/40 to-teal-500/40 rounded-lg animate-pulse-subtle"></div>
+          </div>
+          <div className="absolute top-64 right-1/4 w-10 h-10 bg-gradient-to-r from-rose-500/30 to-pink-500/30 rounded-full animate-geometric-professional shadow-lg shadow-rose-400/20">
+            <div className="w-full h-full bg-gradient-to-r from-rose-500/40 to-pink-500/40 rounded-full animate-pulse-subtle"></div>
+          </div>
+          
+          {/* Professional floating code symbols */}
+          <div className="absolute top-24 left-1/2 text-6xl font-mono text-blue-500/25 animate-code-professional">
             &lt;/&gt;
           </div>
-          <div className="absolute top-40 right-20 text-indigo-400/20 text-4xl font-mono animate-float-code-delayed">
+          <div className="absolute top-40 right-1/4 text-4xl font-mono text-indigo-500/25 animate-code-professional-delayed">
             { }
           </div>
-          <div className="absolute top-60 left-1/4 text-purple-400/20 text-5xl font-mono animate-float-code-slow">
+          <div className="absolute top-56 left-1/5 text-5xl font-mono text-emerald-500/25 animate-code-professional-slow">
             [ ]
           </div>
-          <div className="absolute top-80 right-1/3 text-cyan-400/20 text-3xl font-mono animate-float-code">
+          <div className="absolute top-72 right-1/5 text-3xl font-mono text-rose-500/25 animate-code-professional">
             ( )
           </div>
-          <div className="absolute top-32 left-1/2 text-pink-400/20 text-4xl font-mono animate-float-code-delayed">
+          <div className="absolute top-36 left-2/3 text-4xl font-mono text-cyan-500/25 animate-code-professional-delayed">
             &lt; &gt;
           </div>
           
-          {/* Simple grid pattern */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-5 animate-grid-move"></div>
+          {/* Professional moving grid */}
+          <div className="absolute inset-0 bg-professional-grid opacity-8 animate-grid-professional"></div>
           
-          {/* Simple floating particles */}
-          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-blue-400/40 rounded-full animate-particle-trail"></div>
-          <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-indigo-400/50 rounded-full animate-particle-trail-delayed"></div>
-          <div className="absolute top-1/2 left-1/5 w-4 h-4 bg-purple-400/30 rounded-full animate-particle-trail-slow"></div>
-          <div className="absolute top-2/3 right-1/5 w-2 h-2 bg-cyan-400/40 rounded-full animate-particle-trail"></div>
-          <div className="absolute top-3/4 left-2/3 w-3 h-3 bg-pink-400/50 rounded-full animate-particle-trail-delayed"></div>
+          {/* Professional floating particles */}
+          <div className="absolute top-1/4 left-1/3 w-3 h-3 bg-blue-500/50 rounded-full animate-particle-professional shadow-sm shadow-blue-400/30"></div>
+          <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-indigo-500/60 rounded-full animate-particle-professional-delayed shadow-sm shadow-indigo-400/30"></div>
+          <div className="absolute top-1/2 left-1/5 w-4 h-4 bg-emerald-500/40 rounded-full animate-particle-professional-slow shadow-sm shadow-emerald-400/30"></div>
+          <div className="absolute top-2/3 right-1/5 w-2 h-2 bg-rose-500/50 rounded-full animate-particle-professional shadow-sm shadow-rose-400/30"></div>
+          <div className="absolute top-3/4 left-2/3 w-3 h-3 bg-cyan-500/60 rounded-full animate-particle-professional-delayed shadow-sm shadow-cyan-400/30"></div>
           
-          {/* Subtle overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-white/20"></div>
+          {/* Professional twinkling elements */}
+          <div className="absolute top-12 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-twinkle-professional"></div>
+          <div className="absolute top-28 right-1/3 w-1 h-1 bg-indigo-400 rounded-full animate-twinkle-professional-delayed"></div>
+          <div className="absolute top-44 left-1/6 w-3 h-3 bg-emerald-400 rounded-full animate-twinkle-professional-slow"></div>
+          <div className="absolute top-60 right-1/6 w-2 h-2 bg-rose-400 rounded-full animate-twinkle-professional"></div>
+          <div className="absolute top-76 left-1/3 w-1 h-1 bg-cyan-400 rounded-full animate-twinkle-professional-delayed"></div>
+          
+          {/* Professional overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-white/25 via-transparent to-white/15"></div>
         </div>
         {/* Header */}
         <header className="relative z-10 bg-white/90 backdrop-blur-xl shadow-2xl border-b border-white/30">
