@@ -3,10 +3,6 @@ import { Assignment, CourseInfo } from '../types';
 // Google Calendar API configuration
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-// Debug logging
-console.log('GoogleCalendar.ts loaded');
-console.log('Environment check:', typeof window !== 'undefined' ? 'Browser' : 'Server');
-console.log('GOOGLE_CLIENT_ID:', GOOGLE_CLIENT_ID);
 
 export interface GoogleCalendarEvent {
   summary: string;
@@ -51,9 +47,6 @@ export class GoogleCalendarService {
       : 'https://syllabustocalendar-alpha.vercel.app/auth/google/callback';
     const scope = 'https://www.googleapis.com/auth/calendar';
     
-    console.log('Google Client ID:', GOOGLE_CLIENT_ID);
-    console.log('Redirect URI:', redirectUri);
-    
     const params = new URLSearchParams({
       client_id: GOOGLE_CLIENT_ID || '',
       redirect_uri: redirectUri,
@@ -64,7 +57,6 @@ export class GoogleCalendarService {
     });
 
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-    console.log('Generated Auth URL:', authUrl);
     
     return authUrl;
   }

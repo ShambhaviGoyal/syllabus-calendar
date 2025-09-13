@@ -1,5 +1,4 @@
 import { ProcessedSyllabus, Assignment } from '../types';
-import { parseOperatingSystemsSyllabus } from './simpleParser';
 
 // Mock data based on the real syllabi provided
 export async function mockProcessSyllabus(filename: string): Promise<ProcessedSyllabus> {
@@ -188,7 +187,6 @@ export async function mockProcessSyllabus(filename: string): Promise<ProcessedSy
 export async function processSyllabusWithAI(text: string): Promise<ProcessedSyllabus> {
   // Check if we have an API key, otherwise fall back to mock data
   if (!process.env.OPENAI_API_KEY) {
-    console.log('No OpenAI API key found, using mock data');
     return mockProcessSyllabus(text.substring(0, 100));
   }
 
@@ -244,8 +242,6 @@ ${text}
 
 Return ONLY the JSON object. Do not include any explanations or additional text.`;
 
-    console.log('Sending request to OpenAI with text length:', text.length);
-
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
@@ -257,9 +253,6 @@ Return ONLY the JSON object. Do not include any explanations or additional text.
     if (!response) {
       throw new Error('No response from OpenAI');
     }
-
-    console.log('OpenAI response received, length:', response.length);
-    console.log('Raw response preview:', response.substring(0, 200) + '...');
 
     // Clean the response to extract JSON
     let jsonString = response.trim();
@@ -279,8 +272,6 @@ Return ONLY the JSON object. Do not include any explanations or additional text.
       jsonString = jsonString.substring(firstBrace, lastBrace + 1);
     }
 
-    console.log('Cleaned JSON string preview:', jsonString.substring(0, 200) + '...');
-
     // Parse the JSON response
     const parsed = JSON.parse(jsonString);
     
@@ -296,12 +287,6 @@ Return ONLY the JSON object. Do not include any explanations or additional text.
       isRequired: assignment.isRequired !== undefined ? assignment.isRequired : true,
     }));
 
-    console.log('Successfully parsed AI response:', {
-      courseTitle: parsed.courseInfo.title,
-      assignmentCount: parsed.assignments.length,
-      firstAssignment: parsed.assignments[0]?.title
-    });
-
     return {
       ...parsed,
       success: true,
@@ -313,14 +298,7 @@ Return ONLY the JSON object. Do not include any explanations or additional text.
       stack: error instanceof Error ? error.stack : undefined
     });
     
-    // Try simple parser for Operating Systems syllabus
-    if (text.toLowerCase().includes('operating systems') || text.toLowerCase().includes('cse 421')) {
-      console.log('Trying simple parser for Operating Systems syllabus');
-      return parseOperatingSystemsSyllabus(text);
-    }
-    
     // Fall back to mock data if AI fails
-    console.log('Falling back to mock data due to AI error');
     return mockProcessSyllabus(text.substring(0, 100));
   }
 }
