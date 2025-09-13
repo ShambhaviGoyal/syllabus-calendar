@@ -87,6 +87,11 @@ export default function Home() {
     const redirectUri = `${window.location.origin}/auth/google/callback`;
     const scope = 'https://www.googleapis.com/auth/calendar';
     
+    console.log('Building OAuth URL with:');
+    console.log('- Client ID:', process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+    console.log('- Redirect URI:', redirectUri);
+    console.log('- Scope:', scope);
+    
     const params = new URLSearchParams({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       redirect_uri: redirectUri,
@@ -97,6 +102,8 @@ export default function Home() {
     });
 
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+    console.log('Full OAuth URL:', authUrl);
+    console.log('Redirecting to Google OAuth...');
     window.location.href = authUrl;
   }
 
