@@ -1,14 +1,13 @@
-# 📅 Syllabus Calendar - LawBandit Internship Project
-
-A powerful web application that converts law school syllabi into interactive calendars using AI. Upload a PDF syllabus and automatically extract all assignments, readings, and important dates into a beautiful, organized calendar view.
+# 📅 Syllabus Calendar
+A powerful web application that converts school syllabi into interactive calendars using AI. Upload a PDF syllabus and automatically extract all assignments, readings, and important dates into a beautiful, organized calendar view.
 
 ## 🎯 Project Overview
 
-This project was built for the **LawBandit Software Internship Application** (Fall 2025). It addresses the "Syllabus → Calendar" feature requirement, allowing law students to upload their course syllabi and automatically generate interactive calendars with all important dates and assignments.
+This project addresses the "Syllabus → Calendar" feature requirement, allowing students to upload their course syllabi and automatically generate interactive calendars with all important dates and assignments.
 
 ### Key Features
 
-- 📄 **PDF Upload & Processing**: Upload law school syllabi in PDF format
+- 📄 **PDF Upload & Processing**: Upload school syllabi in PDF format
 - 🤖 **AI-Powered Extraction**: Uses OpenAI GPT-4 to intelligently extract assignments and dates
 - 📅 **Interactive Calendar View**: Beautiful calendar interface with color-coded assignment types
 - 📋 **List View**: Alternative list view with filtering and sorting capabilities
@@ -237,12 +236,12 @@ Set these in your Vercel dashboard:
 ## 🧪 Testing
 
 ### With Real Syllabi
-1. Upload any law school syllabus PDF
+1. Upload any school syllabus PDF
 2. The AI will extract and organize all dates
 3. View results in both calendar and list formats
 
 ### Mock Data
-If no API key is provided, the app uses realistic mock data based on actual law school syllabi.
+If no API key is provided, the app uses realistic mock data based on actual school syllabi.
 
 ## 🎯 Approach & Design Decisions
 
@@ -277,30 +276,8 @@ If no API key is provided, the app uses realistic mock data based on actual law 
 - Data persistence
 - Clean, maintainable code
 
-**Ready for LawBandit Submission:**
-This project meets all LawBandit internship requirements and demonstrates:
-- AI integration with OpenAI GPT-4o-mini
-- OAuth 2.0 authentication flow
-- Google Calendar API integration
-- Modern web technologies (Next.js, TypeScript, Tailwind CSS)
-- Cross-platform compatibility with ICS export
-
-
-## 🤝 Contributing
-
-This project was built for the LawBandit internship application. For questions or feedback, please reach out!
-
-## 📄 License
-
-This project is created for educational and internship application purposes.
-
 ## 🙏 Acknowledgments
 
-- **LawBandit** for the internship opportunity and clear requirements
 - **OpenAI** for providing powerful AI capabilities
 - **FullCalendar** for the excellent calendar component
 - **Tailwind CSS** for the beautiful design system
-
----
-
-**Built with ❤️ for the LawBandit Software Internship Application**
