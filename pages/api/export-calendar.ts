@@ -41,7 +41,7 @@ function generateICS(assignments: Assignment[], courseInfo: any): string {
   let ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Syllabus Calendar//LawBandit//EN',
+    'PRODID:-//Syllabus Calendar//Personal//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${courseInfo?.title || 'Syllabus Calendar'}`,
